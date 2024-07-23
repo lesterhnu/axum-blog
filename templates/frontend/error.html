@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box">
+        <p id="sec">4秒</p>后跳转
+    </div>
+</body>
+<script>
+    var count = 3
+    setInterval(() => {
+        if(count == 0){
+            window.location.href = '/'
+        }
+        document.getElementById("sec").innerText = `${count}秒`
+        count--
+    },1000)
+</script>
+</html>

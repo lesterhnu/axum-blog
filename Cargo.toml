@@ -1,0 +1,39 @@
+[package]
+name = "axum_blog"
+version = "0.1.0"
+edition = "2021"
+ [workspace]
+ members = [".","migration"]
+
+[dependencies]
+askama_axum = "0.4.0"
+hash_avatar = "0.1.5"
+tower = "0.4.13"
+thiserror = "1.0.63"
+
+
+
+[dependencies.axum]
+version = "0.7.5"
+features = ["query", "multipart"]
+
+[dependencies.askama]
+version = "0.12.1"
+features = ["with-axum"]
+
+[dependencies.serde]
+version = "1.0.204"
+features = ["derive"]
+
+[dependencies.sea-orm]
+version = "0.12.15"
+features = ["runtime-tokio-native-tls", "macros", "debug-print", "sqlx-mysql"]
+
+[dependencies.tokio]
+version = "1.38.1"
+features = ["full"]
+
+[dependencies.tower-http]
+version = "0.5.2"
+features = ["full", "cors"]
+
