@@ -1,6 +1,6 @@
-mod routers;
 mod handler;
-use axum_blog::{Result};
+mod routers;
+use axum_blog::Result;
 
 #[tokio::main]
 async fn main() {
