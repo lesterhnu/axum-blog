@@ -1,14 +1,46 @@
-mod handler;
-mod routers;
-use axum_blog::Result;
+use axum_blog::{boot, routers};
+use tokio::signal;
+
 
 #[tokio::main]
 async fn main() {
-    let app = routers::init_routers();
 
+    if std::env::var_os("RUST_LOG").is_none() {
+        std::env::set_var("RUST_LOG", "axum_blog=debug,sea_orm=debug");
+    }
+    let _guard = boot::init().await;
+    let app = routers::init_routers();
     let tcp_listener = tokio::net::TcpListener::bind("127.0.0.1:3000")
         .await
         .unwrap();
+    tracing::info!("dddd");
+    axum::serve(tcp_listener, app)
+    .with_graceful_shutdown(shut_down())
+    .await.expect("启动失败");
+}
 
-    axum::serve(tcp_listener, app).await.expect("启动失败");
+async fn shut_down() {
+    let ctrl_c = async {
+        signal::ctrl_c()
+            .await
+            .expect("failed to install Ctrl+C handler");
+    };
+
+    #[cfg(unix)]
+    let terminate = async {
+        signal::unix::signal(signal::unix::SignalKind::terminate())
+            .expect("failed to install signal handler")
+            .recv()
+            .await;
+    };
+
+    #[cfg(not(unix))]
+    let terminate = std::future::pending::<()>();
+
+    tokio::select! {
+        _ = ctrl_c => {
+            tracing::error!("ctrl+c received, shutting down");
+        },
+        _ = terminate => {},
+    }
 }
