@@ -1,17 +1,17 @@
 [package]
-name = "axum_blog"
+name = "axum-blog"
 version = "0.1.0"
 edition = "2021"
- [workspace]
- members = [".","migration"]
+[workspace]
+members = [".", "migration"]
 
 [dependencies]
 askama_axum = "0.4.0"
 hash_avatar = "0.1.5"
 tower = "0.4.13"
 thiserror = "1.0.63"
-
-
+tracing = "0.1.40"
+tracing-appender = "0.2.3"
 
 [dependencies.axum]
 version = "0.7.5"
@@ -21,13 +21,20 @@ features = ["query", "multipart"]
 version = "0.12.1"
 features = ["with-axum"]
 
+[dependencies.migration]
+path = "migration"
+
 [dependencies.serde]
 version = "1.0.204"
 features = ["derive"]
 
 [dependencies.sea-orm]
 version = "0.12.15"
-features = ["runtime-tokio-native-tls", "macros", "debug-print", "sqlx-mysql"]
+features = ["runtime-tokio-native-tls", "macros", "debug-print", "sqlx-sqlite"]
+
+[dependencies.time]
+version= "0.3.36"
+features=["formatting", "parsing", "macros", "std", "local-offset","serde"] 
 
 [dependencies.tokio]
 version = "1.38.1"
@@ -37,3 +44,7 @@ features = ["full"]
 version = "0.5.2"
 features = ["full", "cors"]
 
+
+[dependencies.tracing-subscriber]
+version = "0.3.18"
+features = ["local-time", "time", "env-filter"]

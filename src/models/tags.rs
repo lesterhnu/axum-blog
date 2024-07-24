@@ -16,6 +16,7 @@ impl EntityName for Entity {
 pub struct Model {
     pub id: i32,
     pub name: String,
+    #[serde(skip_serializing)]
     pub is_del: bool,
 }
 

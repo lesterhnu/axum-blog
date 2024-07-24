@@ -9,6 +9,8 @@ pub enum MyError{
     WithCodeMsg(i32,String),
     #[error("default error")]
     Default,
+    #[error("dberror:{0}")]
+    DbError(#[from] sea_orm::DbErr),
 }
 #[derive(Debug,Template)]
 #[template(path = "frontend/error.html")]

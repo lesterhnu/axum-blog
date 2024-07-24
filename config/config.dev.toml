@@ -1,0 +1,4 @@
+app_name="axum_blog"
+
+[database]
+dsn="sqlite:///G:/code/github/axum-blog/blog.db"

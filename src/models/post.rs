@@ -19,7 +19,9 @@ pub struct Model {
     pub text: String,
     pub is_del: i32,
     pub created_at: Option<String>,
+    #[serde(skip_serializing)]
     pub updated_at: Option<String>,
+    #[serde(skip_serializing)]
     pub deleted_at: Option<String>,
 }
 

@@ -11,9 +11,13 @@
 </head>
 
 <body>
-    {% include "frontend/layout/header.html" %}
-    {% block content %}main{%endblock %}
-    {% include "frontend/layout/footer.html" %}
+    <div class="flex flex-col min-h-screen">
+        {% include "frontend/layout/header.html" %}
+        <div class="w-4/5 ps-3 pt-3 pb-3">
+            {% block content %}main{%endblock %}
+        </div>
+        {% include "frontend/layout/footer.html" %}
+    </div>
 </body>
 
 </html>
