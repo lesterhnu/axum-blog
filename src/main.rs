@@ -13,7 +13,6 @@ async fn main() {
     let tcp_listener = tokio::net::TcpListener::bind("127.0.0.1:3000")
         .await
         .unwrap();
-    tracing::info!("dddd");
     axum::serve(tcp_listener, app)
     .with_graceful_shutdown(shut_down())
     .await.expect("启动失败");

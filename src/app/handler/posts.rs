@@ -11,7 +11,7 @@ pub struct Index {
 
 pub async fn index() -> Result<Index> {
     let p = dao::posts::get_posts().await?;
-    tracing::info!("{:#?}",p);
+    tracing::info!("{:?}",p);
     Ok(Index { posts: p })
 }
 

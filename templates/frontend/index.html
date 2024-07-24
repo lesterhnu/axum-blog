@@ -10,15 +10,14 @@
 
     <div class="card-body" >
         <h2 class="card-title">{{item.post.title}}</h2>
-        <p>{{item.post.text}}</p>
+        <p class="overflow-auto ..." >{{item.post.text}}</p>
+        <div class="card-actions">
+            <div class="badge badge-neutral">neutral</div>
+            <div class="badge badge-neutral">neutral</div>
+        </div>
         <div class="card-actions justify-end">
             <button class="btn btn-primary">Read</button>
         </div>
-        <!-- {% for t in item.tags %}
-        <div class="card-actions justify-end">
-            <button class="btn btn-primary">{{t.name}}</button>
-        </div>
-        {% endfor %} -->
     </div>
 </div>
 {% endfor %}
