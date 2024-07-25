@@ -38,7 +38,7 @@ async fn shut_down() {
 
     tokio::select! {
         _ = ctrl_c => {
-            tracing::error!("ctrl+c received, shutting down");
+            tracing::warn!("ctrl+c received, shutting down");
         },
         _ = terminate => {},
     }
