@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/@wangeditor/editor@latest/dist/css/style.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-/mhDoLbDldZc3qpsJHpLogda//BVZbgYuw6kof4u2FrCedxOtgRZDTHgHUhOCVim"
+        crossorigin="anonymous"></script>
+    <style>
+        #editor—wrapper {
+            border: 1px solid #ccc;
+            z-index: 100;
+            /* 按需定义 */
+        }
+
+        #toolbar-container {
+            border-bottom: 1px solid #ccc;
+        }
+
+        #editor-container {
+            height: 500px;
+        }
+    </style>
+    <title>Edit Post</title>
+</head>
+
+<body>
+    <form action="/admin/post/save" method="post" >
+        <div class="mb-3">
+            <label for="title" class="form-label">Post Title</label>
+            <input type="text" name="title" class="form-control" id="title" placeholder="title">
+        </div>
+        <input type="text" id="content" name="content" style="display: none;">
+        <div id="editor—wrapper">
+            <div id="toolbar-container"><!-- 工具栏 --></div>
+            <div id="editor-container"><!-- 编辑器 --></div>
+        </div>
+        <button class="btn btn-primary" type="submit">Save</button>
+    </form>
+
+
+    
+</body>
+<script src="https://unpkg.com/@wangeditor/editor@latest/dist/index.js"></script>
+<script>
+    const { createEditor, createToolbar } = window.wangEditor
+
+    const editorConfig = {
+        placeholder: 'Type here...',
+        onChange(editor) {
+            const html = editor.getHtml()
+            console.log('editor content', html)
+            // 也可以同步到 <textarea>
+            document.getElementById("content").value = html
+
+        }
+    }
+
+    const editor = createEditor({
+        selector: '#editor-container',
+        html: '<p><br></p>',
+        config: editorConfig,
+        mode: 'default', // or 'simple'
+    })
+
+    const toolbarConfig = {}
+
+    const toolbar = createToolbar({
+        editor,
+        selector: '#toolbar-container',
+        config: toolbarConfig,
+        mode: 'default', // or 'simple'
+    })
+
+    function save() {
+        const html = editor.getHtml()
+        fetch("/admin/post/save", {
+            method: "POST",
+            headers: {
+                "Content-Type": "text/plain; charset=utf-8"
+            },
+            body: JSON.stringify({
+                content: html
+            })
+        })
+    }
+</script>
+
+</html>
