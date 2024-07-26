@@ -3,7 +3,7 @@ name = "axum-blog"
 version = "0.1.0"
 edition = "2021"
 [workspace]
-members = [".", "migration", "examples/template-demo", "examples/sea-orm-demo"]
+members = [".", "migration"]
 
 [dependencies]
 askama_axum = "0.4.0"

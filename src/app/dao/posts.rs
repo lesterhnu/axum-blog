@@ -1,5 +1,7 @@
 
+use sea_orm::ActiveModelTrait;
 use sea_orm::EntityTrait;
+use sea_orm::Set;
 
 use crate::models::post;
 use crate::models::tags;
@@ -20,4 +22,15 @@ pub async fn get_posts()->Result<Vec<PostsWithTag>>{
     }
     
     Ok(result)
+}
+
+pub async fn create_post(title:String,content:String)->Result<i32>{
+    let db = crate::get_db()?;
+    let am  = post::ActiveModel{
+        title:Set(title),
+        text:Set(content),
+        ..Default::default()
+    };
+    let res = am.insert(db).await?;
+    Ok(res.id)
 }
