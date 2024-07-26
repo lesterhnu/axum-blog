@@ -6,7 +6,8 @@ use crate::{MyError,Result};
 
 
 pub static DB:OnceCell<DatabaseConnection> = OnceCell::const_new();
-const SQLITE_DSN:&'static str = "sqlite:///Users/lester/apps/rust_projects/axum-blog/blog.db";
+// const SQLITE_DSN:&'static str = "sqlite:///Users/lester/apps/rust_projects/axum-blog/blog.db";
+const SQLITE_DSN:&'static str = "sqlite://G:/code/github/axum-blog/blog.db";
 
 
 pub async fn init_db(){

@@ -33,8 +33,8 @@ version = "0.12.15"
 features = ["runtime-tokio-native-tls", "macros", "debug-print", "sqlx-sqlite"]
 
 [dependencies.time]
-version= "0.3.36"
-features=["formatting", "parsing", "macros", "std", "local-offset","serde"] 
+version = "0.3.36"
+features = ["formatting", "parsing", "macros", "std", "local-offset", "serde"]
 
 [dependencies.tokio]
 version = "1.38.1"
@@ -48,3 +48,12 @@ features = ["full", "cors"]
 [dependencies.tracing-subscriber]
 version = "0.3.18"
 features = ["local-time", "time", "env-filter"]
+
+
+[[example]]
+name = "template-demo"
+path = "examples/template-demo/src/main.rs"
+
+[[example]]
+name = "sea-orm-demo"
+path = "examples/sea-orm-demo/src/main.rs"

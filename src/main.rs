@@ -10,6 +10,7 @@ async fn main() {
     }
     let _guard = boot::init().await;
     let app = routers::init_routers();
+    
     let tcp_listener = tokio::net::TcpListener::bind("127.0.0.1:3000")
         .await
         .unwrap();
@@ -38,7 +39,7 @@ async fn shut_down() {
 
     tokio::select! {
         _ = ctrl_c => {
-            tracing::error!("ctrl+c received, shutting down");
+            tracing::warn!("ctrl+c received, shutting down");
         },
         _ = terminate => {},
     }

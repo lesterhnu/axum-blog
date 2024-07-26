@@ -1,0 +1,7 @@
+[package]
+name = "sea-orm-demo"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+sea-orm = {version = "0.12.15",features = ["runtime-tokio-native-tls", "macros", "debug-print", "sqlx-mysql"]}
