@@ -1,13 +1,13 @@
 use crate::Result;
+use crate::CONFIG;
 use time::{macros::format_description, UtcOffset};
 use tracing_appender::{non_blocking::WorkerGuard, rolling};
 use tracing_subscriber::fmt::time::OffsetTime;
 use tracing_subscriber::{fmt, layer::SubscriberExt, util::SubscriberInitExt, EnvFilter,Registry};
 
 pub fn register_log() -> Result<WorkerGuard> {
-    let env_filter = EnvFilter::try_from_default_env().unwrap_or_else(|_| EnvFilter::new("info"));
+    let env_filter = EnvFilter::try_from_default_env().unwrap_or_else(|_| EnvFilter::new(&CONFIG.log.level));
     let offset = UtcOffset::from_hms(8, 0, 0).unwrap_or(UtcOffset::UTC);
-    // let local_time = OffsetTime::new(offset, format_description!("[hour]:[minute]:[second]"));
     let log_time = OffsetTime::new(
         offset,
         format_description!("[year]-[month]-[day] [hour]:[minute]:[second]"),
@@ -32,7 +32,6 @@ pub fn register_log() -> Result<WorkerGuard> {
     Registry::default()
         .with(env_filter)
         .with(formatting_layer)
-        // .with(ErrorLayer::default())
         .with(file_layer)
         .init();
     Ok(guard)
