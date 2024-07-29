@@ -21,6 +21,12 @@ features = ["query", "multipart"]
 version = "0.12.1"
 features = ["with-axum"]
 
+[dependencies.config]
+version = "0.14.0"
+
+[dependencies.lazy_static]
+version = "1.5.0"
+
 [dependencies.migration]
 path = "migration"
 
@@ -48,6 +54,8 @@ features = ["full", "cors"]
 [dependencies.tracing-subscriber]
 version = "0.3.18"
 features = ["local-time", "time", "env-filter"]
+
+
 
 
 [[example]]
