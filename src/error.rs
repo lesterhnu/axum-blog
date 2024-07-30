@@ -1,8 +1,11 @@
 use askama_axum::Template;
 use axum::response::{Html, Response};
 use thiserror::Error;
+use axum::Json;
+use serde::Serialize;
 
-#[derive(Debug, Error)]
+
+#[derive(Debug, Error,Clone)]
 pub enum MyError {
     #[error("error info:{1}")]
     WithCodeMsg(i32, String),
@@ -17,6 +20,7 @@ impl MyError {
     }
 }
 
+#[derive(Debug, Serialize)]
 pub struct ErrorResp{
     pub code:i32,
     pub msg:String,
@@ -34,6 +38,22 @@ pub struct ErrorPage;
 
 impl axum::response::IntoResponse for MyError {
     fn into_response(self) -> Response {
-        Html(ErrorPage.render().unwrap()).into_response()
+        match self.clone(){
+            MyError::WithCodeMsg(code,msg)=>{
+                let resp = ErrorResp{
+                    code,
+                    msg,
+                };
+                Json(resp).into_response()
+            },
+            MyError::Default =>{
+                let resp = ErrorResp{
+                    code:-1,
+                    msg:self.to_string(),
+                };
+                Json(resp).into_response()
+            }
+            _ => Html(ErrorPage.render().unwrap()).into_response()
+        }
     }
 }

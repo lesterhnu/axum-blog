@@ -53,3 +53,10 @@ pub async fn save_post(Form(post_req): Form<dto::posts::PostReq>) -> Result<Save
         msg: "success".to_string(),
     })
 }
+
+
+pub async fn get_error()->MyError{
+    tracing::info!("dddd");
+    // Ok(())
+    MyError::WithCodeMsg(-1,"error".to_string())
+}

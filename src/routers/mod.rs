@@ -1,7 +1,10 @@
 mod admin;
 mod middleware;
 use crate::handler;
-use axum::{ routing::{get,post}, Router};
+use axum::{
+    routing::{get, post},
+    Router,
+};
 use tower_http::cors::{Any, CorsLayer};
 pub fn init_routers() -> Router {
     Router::new()
@@ -17,6 +20,7 @@ fn public_routers() -> Router {
     Router::new()
         .route("/", get(handler::posts::index))
         .route("/index", get(handler::posts::index))
+        .route("/get_error", get(handler::posts::get_error))
 }
 
 fn private_routers() -> Router {
