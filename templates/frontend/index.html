@@ -1,22 +1,24 @@
 {% extends "./layout/common.html" %}
 
 {% block content %}
-<div class="mx-auto">
-    {% for item in posts %}
-    <div class="card">
-        <div class="card-header">
-            Featured
+<div class="container">
+    <div class="row gy-5">
+        {% for item in posts %}
+        <div class="card col-12">
+            <!-- <div class="card-header">
+                Featured
+            </div> -->
+            <div class="card-body ">
+                <a href="/post/{{item.post.id}}">
+                    <h5 class="card-title">{{item.post.title}}</h5>
+                </a>
+                <p class="card-text text-truncate" style="max-width: 500px;">{{item.post.text }}</p>
+                {% for tag in item.tags %}
+                <a href="/tags/{{tag.id}}" class="badge text-bg-primary">{{tag.name}}</a>
+                {% endfor %}
+            </div>
         </div>
-        <div class="card-body">
-            <a href="/post/{{item.post.id}}">
-                <h5 class="card-title">{{item.post.title}}</h5>
-            </a>
-            <p class="card-text text-truncate" style="max-width: 300px;">{{item.post.text}}</p>
-            {% for tag in item.tags %}
-            <a href="/tags/{{tag.id}}" class="badge text-bg-primary">{{tag.name}}</a>
-            {% endfor %}
-        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 </div>
 {% endblock %}
