@@ -5,7 +5,7 @@ use axum::Json;
 use serde::Serialize;
 
 
-#[derive(Debug, Error,Clone)]
+#[derive(Debug, Error)]
 pub enum MyError {
     #[error("error info:{1}")]
     WithCodeMsg(i32, String),
@@ -38,7 +38,7 @@ pub struct ErrorPage;
 
 impl axum::response::IntoResponse for MyError {
     fn into_response(self) -> Response {
-        match self.clone(){
+        match self{
             MyError::WithCodeMsg(code,msg)=>{
                 let resp = ErrorResp{
                     code,
