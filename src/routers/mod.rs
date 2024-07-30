@@ -20,6 +20,7 @@ fn public_routers() -> Router {
     Router::new()
         .route("/", get(handler::posts::index))
         .route("/index", get(handler::posts::index))
+        .route("/post/:id", get(handler::posts::get_post_detail))
         .route("/get_error", get(handler::posts::get_error))
 }
 

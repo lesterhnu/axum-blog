@@ -4,6 +4,7 @@ use crate::dto::posts::PostsWithTag;
 use crate::MyError;
 use crate::Result;
 use askama_axum::Template;
+use axum::extract::Path;
 use axum::extract::Request;
 use axum::Form;
 
@@ -59,4 +60,15 @@ pub async fn get_error()->MyError{
     tracing::info!("dddd");
     // Ok(())
     MyError::WithCodeMsg(-1,"error".to_string())
+}
+#[derive(Debug,Template)]
+#[template(path = "frontend/post_detail.html")]
+pub struct PostDetailTemplate {
+    pub post:PostsWithTag,
+}
+pub async fn get_post_detail(Path(id):Path<i32>)->Result<PostDetailTemplate>{
+    let post = dao::posts::get_post_by_id(id).await?;
+    Ok(PostDetailTemplate{
+        post:post
+    })
 }
