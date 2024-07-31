@@ -3,6 +3,7 @@ app_name="axum_blog"
 
 [database]
 dsn="sqlite://G:/code/github/axum-blog/blog.db"
+# dsn="sqlite://C:/Users/leste/apps/rust_projects/axum-blog/blog.db"
 
 [log]
 # level="debug"
